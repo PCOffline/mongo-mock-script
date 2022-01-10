@@ -135,7 +135,9 @@ async function dryRun() {
         Object.keys(config.collections).map((collectionName) => {
           const { data } = config.collections[collectionName];
 
-          return `${colors.special(collectionName)} - ${colors.special(data.length)}`;
+          return `${colors.special(collectionName)} - ${colors.special(
+            data.length,
+          )}`;
         }),
       ),
     ]),
@@ -166,3 +168,26 @@ async function run() {
     }),
   );
 }
+
+function startDryRun() {
+  loadPromise(dryRun(), {
+    text: 'Performing a dry run',
+    successText: 'Dry run complete',
+    failText: 'Failed to perform a dry run',
+  })
+    .then(() => process.exit(0))
+    .catch(() => process.exit(1));
+}
+
+function startRun() {
+  loadPromise(run(), {
+    text: 'Performing a run',
+    successText: 'Run complete',
+    failText: 'Failed to perform a run',
+  })
+    .then(() => process.exit(0))
+    .catch(() => process.exit(1));
+}
+
+if (process.argv[2] === '--dry-run') startDryRun();
+else startRun();
