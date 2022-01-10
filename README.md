@@ -19,7 +19,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 export default {
-  debugMode: false, // Enables debug logs
+  logLevel: 'info', // 'debug' | 'info' | 'warn' | 'error' | 'silent'
   mongoUri: 'mongodb://localhost:27017/my-database',
   collections: {
     collectionName: {

@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 export default {
-  debugMode: true, // Enables debug logs
-  mongoUri: 'mongodb://localhost:27017/my-database',
+  logLevel: 'info', // 'debug' | 'info' | 'warn' | 'error' | 'silent'
+  mongoUri: 'mongodb://radar-dev-db:C29fiJv49oAdNpN8SpYaLElv95HmtZgxKOd9vRM54BgPNu6LqnPRwq5YsjTvOPBRMnVwkvDd2VRuFedSTvVtQQ%3D%3D@radar-dev-db.mongo.cosmos.azure.com:10255/radar-dev-db?authSource=admin&replicaSet=globaldb&maxIdleTimeMS=120000&readPreference=primary&appname=MongoDB%20Compass&retryWrites=false&ssl=true',
   collections: {
     collectionName: {
       schema: new Schema({
