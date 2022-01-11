@@ -220,24 +220,25 @@ function startDryRun() {
 
 function startRun() {
   // Prompt user whether they're sure they want to run this script
-  rl.question(
-    'Running this script will delete all existing documents in the collections specified in the configuration file. Are you sure you want to continue? (y/N) ',
-    (answer) => {
-      rl.close();
-      if (answer.toLowerCase() !== 'y') {
-        logInfo('Exiting');
-        process.exit(0);
-      }
-      
-      loadPromise(run(), {
-        text: 'Performing a run',
-        successText: 'Run complete',
-        failText: 'Failed to perform a run',
-      })
-        .then(() => process.exit(0))
-        .catch(() => process.exit(1));
-    },
-  );
+  if (!config.noConfirmation)
+    rl.question(
+      'Running this script will delete all existing documents in the collections specified in the configuration file. Are you sure you want to continue? (y/N) ',
+      (answer) => {
+        rl.close();
+        if (answer.toLowerCase() !== 'y') {
+          logInfo('Exiting');
+          process.exit(0);
+        }
+
+        loadPromise(run(), {
+          text: 'Performing a run',
+          successText: 'Run complete',
+          failText: 'Failed to perform a run',
+        })
+          .then(() => process.exit(0))
+          .catch(() => process.exit(1));
+      },
+    );
 }
 
 if (process.argv[2] === '--dry-run') startDryRun();
