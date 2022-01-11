@@ -9,7 +9,7 @@ Simply use `git clone`:
 
 # Config
 
-Before running the script, you'll have to configure the script.
+Before running, you'll have to configure the script.
 Begin with setting the mongoUri variable to your mongoDB server.
 Then provide all the collections you'd like to modify in the following syntax:
 
