@@ -10,10 +10,11 @@ Simply use `git clone`:
 # Config
 
 Before running, you'll have to configure the script.
-Begin with setting the mongoUri variable to your mongoDB server.
+Go to the `config.js` file and set the mongoUri variable to your mongoDB server.
 Then provide all the collections you'd like to modify in the following syntax:
 
 ```js
+// config.js
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
