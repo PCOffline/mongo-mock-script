@@ -65,7 +65,10 @@ const load = (text, color) => {
 
   return ora({ ...oraOptions, text: chalk[color ?? defaultTextColor](text) });
 };
-const loadPromise = (promise, { color, text, failText, successText }) => {
+const loadPromise = (
+  promise,
+  { color, text, failText, successText, ...options },
+) => {
   if (logLevel === logLevels.silent) return promise;
   if (logLevel >= logLevels.warn)
     return promise.catch((error) => {
@@ -75,6 +78,7 @@ const loadPromise = (promise, { color, text, failText, successText }) => {
 
   return oraPromise(promise, {
     ...oraOptions,
+    ...options,
     text: chalk[color ?? defaultTextColor](text),
     failText: colors.error(failText),
     successText: colors.success(successText),
@@ -166,18 +170,6 @@ async function dryRun() {
 }
 
 async function run() {
-  // Prompt user whether they're sure they want to run this script
-  rl.question(
-    'Running this script will delete all existing documents in the collections specified in the configuration file. Are you sure you want to continue? (y/N) ',
-    (answer) => {
-      if (answer.toLowerCase() !== 'y') {
-        logInfo('Exiting');
-        process.exit(0);
-      }
-    },
-  );
-  rl.close();
-
   // Initialise
   await loadPromise(initialise(), {
     text: 'Initialising',
@@ -227,13 +219,25 @@ function startDryRun() {
 }
 
 function startRun() {
-  loadPromise(run(), {
-    text: 'Performing a run',
-    successText: 'Run complete',
-    failText: 'Failed to perform a run',
-  })
-    .then(() => process.exit(0))
-    .catch(() => process.exit(1));
+  // Prompt user whether they're sure they want to run this script
+  rl.question(
+    'Running this script will delete all existing documents in the collections specified in the configuration file. Are you sure you want to continue? (y/N) ',
+    (answer) => {
+      rl.close();
+      if (answer.toLowerCase() !== 'y') {
+        logInfo('Exiting');
+        process.exit(0);
+      }
+      
+      loadPromise(run(), {
+        text: 'Performing a run',
+        successText: 'Run complete',
+        failText: 'Failed to perform a run',
+      })
+        .then(() => process.exit(0))
+        .catch(() => process.exit(1));
+    },
+  );
 }
 
 if (process.argv[2] === '--dry-run') startDryRun();
