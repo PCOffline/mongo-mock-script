@@ -4,8 +4,8 @@ With this script you can drop any collection and swiftly insert as many document
 
 # Installation
 
-Simply use `git clone`:
-`git clone https://github.com/alphayesodot/mongo-mock-script.git`
+`git clone https://github.com/PCOffline/reset-db.git`
+`cd reset-db`
 
 # Config
 
