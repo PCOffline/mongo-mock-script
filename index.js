@@ -1,7 +1,13 @@
 import mongoose from 'mongoose';
 import chalk from 'chalk';
 import ora, { oraPromise } from 'ora';
+import readline from 'readline';
 import config from './config.js';
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
 const defaultTextColor = 'cyan';
 const spinnerColor = 'yellow';
@@ -160,12 +166,53 @@ async function dryRun() {
 }
 
 async function run() {
+  // Prompt user whether they're sure they want to run this script
+  rl.question(
+    'Running this script will delete all existing documents in the collections specified in the configuration file. Are you sure you want to continue? (y/N) ',
+    (answer) => {
+      if (answer.toLowerCase() !== 'y') {
+        logInfo('Exiting');
+        process.exit(0);
+      }
+    },
+  );
+  rl.close();
+
+  // Initialise
+  await loadPromise(initialise(), {
+    text: 'Initialising',
+    successText: 'Initialised',
+    failText: 'Failed to initialise',
+  });
+
   // Drop all collections
-  await Promise.all(
-    Object.keys(config.collections).map(async (collectionName) => {
-      const collection = config.collections[collectionName];
-      await collection.model.deleteMany({});
-    }),
+  await loadPromise(
+    Promise.all(
+      Object.keys(config.collections).map(async (collectionName) => {
+        const collection = config.collections[collectionName];
+        await collection.model.deleteMany({});
+      }),
+    ),
+    {
+      text: 'Dropping collections',
+      successText: 'Dropped collections',
+      failText: 'Failed to drop collections',
+    },
+  );
+
+  // Insert all documents
+  await loadPromise(
+    Promise.all(
+      Object.keys(config.collections).map(async (collectionName) => {
+        const collection = config.collections[collectionName];
+        return collection.model.insertMany(collection.data);
+      }),
+    ),
+    {
+      text: 'Inserting documents',
+      successText: 'Inserted documents',
+      failText: 'Failed to insert documents',
+    },
   );
 }
 
