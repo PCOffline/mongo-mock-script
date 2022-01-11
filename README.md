@@ -1,6 +1,6 @@
-# Sync Your Mock Data With a MongoDB Server
+# An Easy Way to Maintain Clean Collections
 
-This script will delete all the documents in the provided database and upload the mock data instead.
+With this script you can drop any collection and swiftly insert as many documents as you'd like to it, with simple and straight-forward configurations.
 
 # Installation
 
