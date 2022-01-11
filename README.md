@@ -1,25 +1,27 @@
-# Sync Your Mock Data With a MongoDB Server
+# An Easy Way to Maintain Clean Collections
 
-This script will delete all the documents in the provided database and upload the mock data instead.
+With this script you can drop any collection and swiftly insert as many documents as you'd like to it, with simple and straight-forward configurations.
 
 # Installation
 
-Simply use `git clone`:
-`git clone https://github.com/alphayesodot/mongo-mock-script.git`
+`git clone https://github.com/PCOffline/reset-db.git`
+
+`cd reset-db`
 
 # Config
 
-Before running the script, you'll have to configure the script.
-Begin with setting the mongoUri variable to your mongoDB server.
+Before running, you'll have to configure the script.
+Go to the `config.js` file and set the mongoUri variable to your mongoDB server.
 Then provide all the collections you'd like to modify in the following syntax:
 
 ```js
+// config.js
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
 export default {
-    noConfirmation: false, // Don't ask for confirmation before deleting
+  noConfirmation: false, // Don't ask for confirmation before deleting, recommended for CIs and other automations
   logLevel: 'info', // 'debug' | 'info' | 'warn' | 'error' | 'silent'
   mongoUri: 'mongodb://localhost:27017/my-database',
   collections: {
