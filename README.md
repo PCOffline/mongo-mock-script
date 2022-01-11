@@ -19,7 +19,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 export default {
-    noConfirmation: false, // Don't ask for confirmation before deleting
+  noConfirmation: false, // Don't ask for confirmation before deleting, recommended for CIs and other automations
   logLevel: 'info', // 'debug' | 'info' | 'warn' | 'error' | 'silent'
   mongoUri: 'mongodb://localhost:27017/my-database',
   collections: {
