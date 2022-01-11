@@ -5,6 +5,7 @@ With this script you can drop any collection and swiftly insert as many document
 # Installation
 
 `git clone https://github.com/PCOffline/reset-db.git`
+
 `cd reset-db`
 
 # Config
