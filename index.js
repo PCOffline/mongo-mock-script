@@ -108,7 +108,7 @@ async function initialise() {
 
   const modelsPromise = promisify(() => {
     // Create all models
-    Object.keys(config.collections).forEach((collectionName) => {
+    Object.keys(config.collections).forEach(async (collectionName) => {
       const { model, schema, path, data } = config.collections[collectionName];
 
       if (!data?.length && !path) {
@@ -124,12 +124,13 @@ async function initialise() {
             config.preferPath ? 'path' : 'data'
           }. You can change the configuration to use only one or the other.`,
         );
-      else if (config.preferPath ? !path : data) realData = data;
+
+      if (config.preferPath ? !path : data) realData = data;
       else {
         try {
           realData = await import(path);
         } catch (error) {
-          logError(`Path '${path}' is invalid!`);
+          logError(`The path '${path}' of '${collectionName}' is invalid!`);
           logDebug(error);
 
           return;
@@ -148,7 +149,14 @@ async function initialise() {
     text: 'Creating models',
     successText: 'Created models',
     failText: 'Failed to create models',
-  }).then(logDebugData);
+  })
+    .then(logDebugData)
+    .then(() => {
+      if (standardCollections.length === 0) {
+        logError('No valid collections found!');
+        throw new Error('No valid collections found!');
+      }
+    });
 }
 
 async function dryRun() {
@@ -169,9 +177,10 @@ async function dryRun() {
         }),
       ),
       promisify(() =>
-        standardCollections.map(
-          ({ name, data }) =>
-            `${colors.special(name)} - ${colors.special(data.length)}`,
+        standardCollections.map(({ name, data }) =>
+          data
+            ? `${colors.special(name)} - ${colors.special(data.length)}`
+            : logDebug(`Data is undefined in ${name}`),
         ),
       ),
     ]),
@@ -214,9 +223,7 @@ async function run() {
   // Insert all documents
   await loadPromise(
     Promise.all(
-      standardCollections.map(async ({ model, data }) =>
-        model.insertMany(data),
-      ),
+      standardCollections.map(({ model, data }) => model.insertMany(data)),
     ),
     {
       text: 'Inserting documents',
