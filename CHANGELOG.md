@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.4](https://github.com/PCOffline/mongo-mock-script/compare/v0.5.3...v0.5.4) (2022-01-12)
+
+
+### Features
+
+* add preferPath & standard collection ([449513d](https://github.com/PCOffline/mongo-mock-script/commit/449513d257bf6c8979a50619fd9c57225fc84780))
+* debug log all paths ([2c493bd](https://github.com/PCOffline/mongo-mock-script/commit/2c493bd602c5d465eccca774171a2edeb2d39842))
+* use standardCollections ([00acdd1](https://github.com/PCOffline/mongo-mock-script/commit/00acdd19de803de9205f9936f3f2d23cf8b0aa34))
+
+
+### Bug Fixes
+
+* standard collection process ([836141b](https://github.com/PCOffline/mongo-mock-script/commit/836141bea70b7a8768207d711d0e2fe50bb93855))
+
 ### [0.5.3](https://github.com/PCOffline/mongo-mock-script/compare/v0.5.2...v0.5.3) (2022-01-12)
 
 ### Refactor
