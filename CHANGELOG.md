@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.5.3](https://github.com/PCOffline/mongo-mock-script/compare/v0.5.2...v0.5.3) (2022-01-12)
 
+### Refactor
+
+* Change noConfirmation to noPrompt
+
 ## 0.5.0
 ### Features
 
