@@ -88,15 +88,17 @@ const loadPromise = (
   });
 };
 
+const standardCollections = [];
+
 function logDebugData() {
+  if (logLevel > logLevels.debug) return;
+
   logDebug('Log Level:', logLevel);
-  logDebug('Mongo URI:', config.mongoUri);
   logDebug('Config:', JSON.stringify(config));
+  logDebug('Standard Collections:', JSON.stringify(standardCollections));
 }
 
 async function initialise() {
-  logDebugData();
-
   // Connect to mongoose
   await loadPromise(mongoose.connect(config.mongoUri), {
     text: 'Connecting to MongoDB',
@@ -107,12 +109,38 @@ async function initialise() {
   const modelsPromise = promisify(() => {
     // Create all models
     Object.keys(config.collections).forEach((collectionName) => {
-      const collection = config.collections[collectionName];
-      collection.model = mongoose.model(
-        collection.model,
-        collection.schema,
-        collectionName,
-      );
+      const { model, schema, path, data } = config.collections[collectionName];
+
+      if (!data?.length && !path) {
+        logError(`No data or path for collection '${collectionName}'!`);
+        return;
+      }
+
+      let realData;
+
+      if (path && data?.length)
+        logWarn(
+          `Both data and path were provided in '${collectionName}', using ${
+            config.preferPath ? 'path' : 'data'
+          }. You can change the configuration to use only one or the other.`,
+        );
+      else if (config.preferPath ? !path : data) realData = data;
+      else {
+        try {
+          realData = await import(path);
+        } catch (error) {
+          logError(`Path '${path}' is invalid!`);
+          logDebug(error);
+
+          return;
+        }
+      }
+
+      standardCollections.push({
+        name: collectionName,
+        model: mongoose.model(model, schema, collectionName),
+        data: realData,
+      });
     });
   });
 
@@ -120,7 +148,7 @@ async function initialise() {
     text: 'Creating models',
     successText: 'Created models',
     failText: 'Failed to create models',
-  });
+  }).then(logDebugData);
 }
 
 async function dryRun() {
@@ -134,32 +162,17 @@ async function dryRun() {
   await loadPromise(
     Promise.all([
       Promise.all(
-        Object.keys(config.collections).map(async (collectionName) => {
-          const { model } = config.collections[collectionName];
+        standardCollections.map(async ({ name, model }) => {
           const count = await model.countDocuments();
 
-          return `${colors.special(collectionName)} - ${colors.special(count)}`;
+          return `${colors.special(name)} - ${colors.special(count)}`;
         }),
       ),
       promisify(() =>
-        Object.keys(config.collections).map((collectionName) => {
-          const { data, path } = config.collections[collectionName];
-          let realData;
-
-          if (path)
-            realData = await import(path).catch((error) => {
-              logError(`Path '${path}' is invalid!`);
-              logDebug(error);
-
-              return null;
-            });
-
-          if (!realData) realData = data;
-
-          return `${colors.special(collectionName)} - ${colors.special(
-            realData.length,
-          )}`;
-        }),
+        standardCollections.map(
+          ({ name, data }) =>
+            `${colors.special(name)} - ${colors.special(data.length)}`,
+        ),
       ),
     ]),
     {
@@ -190,12 +203,7 @@ async function run() {
 
   // Drop all collections
   await loadPromise(
-    Promise.all(
-      Object.keys(config.collections).map(async (collectionName) => {
-        const { model } = config.collections[collectionName];
-        await model.deleteMany({});
-      }),
-    ),
+    Promise.all(standardCollections.map(({ model }) => model.deleteMany({}))),
     {
       text: 'Dropping collections',
       successText: 'Dropped collections',
@@ -206,22 +214,9 @@ async function run() {
   // Insert all documents
   await loadPromise(
     Promise.all(
-      Object.keys(config.collections).map(async (collectionName) => {
-        const { data, path, model } = config.collections[collectionName];
-        let realData;
-
-        if (path)
-          realData = await import(path).catch((error) => {
-            logError(`Path '${path}' is invalid!`);
-            logDebug(error);
-
-            return null;
-          });
-
-        if (!realData) realData = data;
-
-        return model.insertMany(realData);
-      }),
+      standardCollections.map(async ({ model, data }) =>
+        model.insertMany(data),
+      ),
     ),
     {
       text: 'Inserting documents',
