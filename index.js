@@ -89,6 +89,8 @@ const loadPromise = (
 };
 
 function logDebugData() {
+  if (logLevel > logLevels.debug) return;
+
   logDebug('Log Level:', logLevel);
   logDebug('Mongo URI:', config.mongoUri);
   logDebug('Config:', JSON.stringify(config));
@@ -112,8 +114,6 @@ function logDebugData() {
 }
 
 async function initialise() {
-  logDebugData();
-
   // Connect to mongoose
   await loadPromise(mongoose.connect(config.mongoUri), {
     text: 'Connecting to MongoDB',
@@ -132,6 +132,8 @@ async function initialise() {
       );
     });
   });
+
+  logDebugData();
 
   return loadPromise(modelsPromise, {
     text: 'Creating models',
