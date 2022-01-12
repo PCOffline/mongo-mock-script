@@ -125,13 +125,16 @@ async function initialise() {
           }. You can change the configuration to use only one or the other.`,
         );
       else if (config.preferPath ? !path : data) realData = data;
-      else
-        realData = await import(path).catch((error) => {
+      else {
+        try {
+          realData = await import(path);
+        } catch (error) {
           logError(`Path '${path}' is invalid!`);
           logDebug(error);
 
-          return null;
-        });
+          return;
+        }
+      }
 
       standardCollections.push({
         name: collectionName,
@@ -141,13 +144,11 @@ async function initialise() {
     });
   });
 
-  logDebugData();
-
   return loadPromise(modelsPromise, {
     text: 'Creating models',
     successText: 'Created models',
     failText: 'Failed to create models',
-  });
+  }).then(logDebugData);
 }
 
 async function dryRun() {
