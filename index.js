@@ -92,6 +92,23 @@ function logDebugData() {
   logDebug('Log Level:', logLevel);
   logDebug('Mongo URI:', config.mongoUri);
   logDebug('Config:', JSON.stringify(config));
+
+  const paths = await Promise.all(
+    Object.keys(config.collections).map((collectionName) => ({
+      [collectionName]: await import(
+        config.collections[collectionName].path
+      ).catch((error) => {
+        logDebug(error);
+        logError(
+          `Path '${config.collections[collectionName].path}' is invalid!`,
+        );
+
+        return 'Invalid path';
+      }),
+    })),
+  );
+
+  logDebug('Paths:', JSON.stringify(paths));
 }
 
 async function initialise() {
