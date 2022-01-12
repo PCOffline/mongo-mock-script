@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 export default {
   noPrompt: false, // Don't prompt before deleting
+  preferPath: true, // When both path and data are provided, ignore the data and only use the path. If false, only the data will be used in such case.
   logLevel: 'info', // 'debug' | 'info' | 'warn' | 'error' | 'silent'
   mongoUri: 'mongodb://localhost:27017/my-database',
   collections: {

@@ -88,11 +88,12 @@ const loadPromise = (
   });
 };
 
+const standardCollections = [];
+
 function logDebugData() {
   if (logLevel > logLevels.debug) return;
 
   logDebug('Log Level:', logLevel);
-  logDebug('Mongo URI:', config.mongoUri);
   logDebug('Config:', JSON.stringify(config));
 
   const paths = await Promise.all(
@@ -124,12 +125,35 @@ async function initialise() {
   const modelsPromise = promisify(() => {
     // Create all models
     Object.keys(config.collections).forEach((collectionName) => {
-      const collection = config.collections[collectionName];
-      collection.model = mongoose.model(
-        collection.model,
-        collection.schema,
-        collectionName,
-      );
+      const { model, schema, path, data } = config.collections[collectionName];
+
+      if (!data?.length && !path) {
+        logError(`No data or path for collection '${collectionName}'!`);
+        throw new Error(`No data or path for collection '${collectionName}'!`);
+      }
+
+      let realData;
+
+      if (path && data?.length)
+        logWarn(
+          `Both data and path were provided in '${collectionName}', using ${
+            config.preferPath ? 'path' : 'data'
+          }. You can change the configuration to use only one or the other.`,
+        );
+      else if (config.preferPath ? !path : data) realData = data;
+      else
+        realData = await import(path).catch((error) => {
+          logError(`Path '${path}' is invalid!`);
+          logDebug(error);
+
+          return null;
+        });
+
+      standardCollections.push({
+        name: collectionName,
+        model: mongoose.model(model, schema, collectionName),
+        data: realData,
+      });
     });
   });
 
