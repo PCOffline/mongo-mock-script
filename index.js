@@ -24,16 +24,16 @@ const logLevels = { debug: 0, info: 1, warn: 2, error: 3, silent: 4 };
 const logLevel = logLevels[config.logLevel.toLowerCase()] ?? logLevels.info;
 
 const logDebug = (...text) => {
-  if (logLevel <= logLevels.debug) console.debug(colors.debug(...text));
+  if (logLevel <= logLevels.debug) console.debug(colors.debug('🛠', ...text));
 };
 const logInfo = (...text) => {
-  if (logLevel <= logLevels.info) console.info(colors.info(...text));
+  if (logLevel <= logLevels.info) console.info(colors.info('ℹ', ...text));
 };
 const logWarn = (...text) => {
-  if (logLevel <= logLevels.warn) console.warn(colors.warn(...text));
+  if (logLevel <= logLevels.warn) console.warn(colors.warn('⚠', ...text));
 };
 const logError = (...text) => {
-  if (logLevel <= logLevels.error) console.error(colors.error(...text));
+  if (logLevel <= logLevels.error) console.error(colors.error('⨯', ...text));
 };
 
 const promisify = (func) =>
@@ -182,11 +182,11 @@ async function dryRun() {
     },
   ).then(([deleteMessages, insertMessages]) =>
     logInfo(
-      chalk.bold('ℹ Documents that would be deleted'),
+      chalk.bold('Documents that would be deleted'),
       '\n',
       deleteMessages.join('\n'),
       '\n\n',
-      chalk.bold('ℹ Documents that would be inserted'),
+      chalk.bold('Documents that would be inserted'),
       '\n',
       insertMessages.join('\n'),
     ),
