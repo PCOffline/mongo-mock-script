@@ -243,7 +243,7 @@ function startDryRun() {
 
 function startRun() {
   // Prompt user whether they're sure they want to run this script
-  if (!config.noConfirmation)
+  if (!config.noPrompt)
     rl.question(
       'Running this script will delete all existing documents in the collections specified in the configuration file. Are you sure you want to continue? (y/N) ',
       (answer) => {

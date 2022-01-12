@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 export default {
-  noConfirmation: false, // Don't ask for confirmation before deleting
+  noPrompt: false, // Don't prompt before deleting
   logLevel: 'info', // 'debug' | 'info' | 'warn' | 'error' | 'silent'
   mongoUri: 'mongodb://localhost:27017/my-database',
   collections: {
