@@ -143,10 +143,21 @@ async function dryRun() {
       ),
       promisify(() =>
         Object.keys(config.collections).map((collectionName) => {
-          const { data } = config.collections[collectionName];
+          const { data, path } = config.collections[collectionName];
+          let realData;
+
+          if (path)
+            realData = await import(path).catch((error) => {
+              logError(`Path '${path}' is invalid!`);
+              logDebug(error);
+
+              return null;
+            });
+
+          if (!realData) realData = data;
 
           return `${colors.special(collectionName)} - ${colors.special(
-            data.length,
+            realData.length,
           )}`;
         }),
       ),
@@ -181,8 +192,8 @@ async function run() {
   await loadPromise(
     Promise.all(
       Object.keys(config.collections).map(async (collectionName) => {
-        const collection = config.collections[collectionName];
-        await collection.model.deleteMany({});
+        const { model } = config.collections[collectionName];
+        await model.deleteMany({});
       }),
     ),
     {
@@ -196,8 +207,20 @@ async function run() {
   await loadPromise(
     Promise.all(
       Object.keys(config.collections).map(async (collectionName) => {
-        const collection = config.collections[collectionName];
-        return collection.model.insertMany(collection.data);
+        const { data, path, model } = config.collections[collectionName];
+        let realData;
+
+        if (path)
+          realData = await import(path).catch((error) => {
+            logError(`Path '${path}' is invalid!`);
+            logDebug(error);
+
+            return null;
+          });
+
+        if (!realData) realData = data;
+
+        return model.insertMany(realData);
       }),
     ),
     {
