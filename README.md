@@ -21,7 +21,8 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 export default {
-  noConfirmation: false, // Don't ask for confirmation before deleting, recommended for CIs and other automations
+  noPrompt: false, // Don't prompt before deleting
+  preferPath: true, // When both path and data are provided, ignore the data and only use the path. If false, only the data will be used in such case.
   logLevel: 'info', // 'debug' | 'info' | 'warn' | 'error' | 'silent'
   mongoUri: 'mongodb://localhost:27017/my-database',
   collections: {
@@ -44,6 +45,7 @@ export default {
     },
   },
 };
+
 ```
 
 It's recommended to use the `path` instead of the `data` to avoid clustering and make modifying the data easier.
