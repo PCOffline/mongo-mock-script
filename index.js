@@ -24,16 +24,16 @@ const logLevels = { debug: 0, info: 1, warn: 2, error: 3, silent: 4 };
 const logLevel = logLevels[config.logLevel.toLowerCase()] ?? logLevels.info;
 
 const logDebug = (...text) => {
-  if (logLevel <= logLevels.debug) console.debug(colors.debug(...text));
+  if (logLevel <= logLevels.debug) console.debug(colors.debug('🛠', ...text));
 };
 const logInfo = (...text) => {
-  if (logLevel <= logLevels.info) console.info(colors.info(...text));
+  if (logLevel <= logLevels.info) console.info(colors.info('ℹ', ...text));
 };
 const logWarn = (...text) => {
-  if (logLevel <= logLevels.warn) console.warn(colors.warn(...text));
+  if (logLevel <= logLevels.warn) console.warn(colors.warn('⚠', ...text));
 };
 const logError = (...text) => {
-  if (logLevel <= logLevels.error) console.error(colors.error(...text));
+  if (logLevel <= logLevels.error) console.error(colors.error('⨯', ...text));
 };
 
 const promisify = (func) =>
@@ -108,7 +108,7 @@ async function initialise() {
 
   const modelsPromise = promisify(() => {
     // Create all models
-    Object.keys(config.collections).forEach((collectionName) => {
+    Object.keys(config.collections).forEach(async (collectionName) => {
       const { model, schema, path, data } = config.collections[collectionName];
 
       if (!data?.length && !path) {
@@ -122,14 +122,15 @@ async function initialise() {
         logWarn(
           `Both data and path were provided in '${collectionName}', using ${
             config.preferPath ? 'path' : 'data'
-          }. You can change the configuration to use only one or the other.`,
+          }. To change this behavior, change 'preferPath' in config.js.`,
         );
-      else if (config.preferPath ? !path : data) realData = data;
+
+      if (config.preferPath ? !path : data) realData = data;
       else {
         try {
           realData = await import(path);
         } catch (error) {
-          logError(`Path '${path}' is invalid!`);
+          logError(`The path '${path}' of '${collectionName}' is invalid!`);
           logDebug(error);
 
           return;
@@ -148,7 +149,14 @@ async function initialise() {
     text: 'Creating models',
     successText: 'Created models',
     failText: 'Failed to create models',
-  }).then(logDebugData);
+  })
+    .then(logDebugData)
+    .then(() => {
+      if (standardCollections.length === 0) {
+        logError('No valid collections found!');
+        throw new Error('No valid collections found!');
+      }
+    });
 }
 
 async function dryRun() {
@@ -169,9 +177,10 @@ async function dryRun() {
         }),
       ),
       promisify(() =>
-        standardCollections.map(
-          ({ name, data }) =>
-            `${colors.special(name)} - ${colors.special(data.length)}`,
+        standardCollections.map(({ name, data }) =>
+          data
+            ? `${colors.special(name)} - ${colors.special(data.length)}`
+            : logDebug(`Data is undefined in ${name}`),
         ),
       ),
     ]),
@@ -182,11 +191,11 @@ async function dryRun() {
     },
   ).then(([deleteMessages, insertMessages]) =>
     logInfo(
-      chalk.bold('ℹ Documents that would be deleted'),
+      chalk.bold('Documents that would be deleted'),
       '\n',
       deleteMessages.join('\n'),
       '\n\n',
-      chalk.bold('ℹ Documents that would be inserted'),
+      chalk.bold('Documents that would be inserted'),
       '\n',
       insertMessages.join('\n'),
     ),
@@ -214,9 +223,7 @@ async function run() {
   // Insert all documents
   await loadPromise(
     Promise.all(
-      standardCollections.map(async ({ model, data }) =>
-        model.insertMany(data),
-      ),
+      standardCollections.map(({ model, data }) => model.insertMany(data)),
     ),
     {
       text: 'Inserting documents',
@@ -247,16 +254,16 @@ function startRun() {
           logInfo('Exiting');
           process.exit(0);
         }
-
-        loadPromise(run(), {
-          text: 'Performing a run',
-          successText: 'Run complete',
-          failText: 'Failed to perform a run',
-        })
-          .then(() => process.exit(0))
-          .catch(() => process.exit(1));
       },
     );
+
+  loadPromise(run(), {
+    text: 'Performing a run',
+    successText: 'Run complete',
+    failText: 'Failed to perform a run',
+  })
+    .then(() => process.exit(0))
+    .catch(() => process.exit(1));
 }
 
 if (process.argv[2] === '--dry-run') startDryRun();
