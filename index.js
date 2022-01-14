@@ -254,16 +254,16 @@ function startRun() {
           logInfo('Exiting');
           process.exit(0);
         }
-
-        loadPromise(run(), {
-          text: 'Performing a run',
-          successText: 'Run complete',
-          failText: 'Failed to perform a run',
-        })
-          .then(() => process.exit(0))
-          .catch(() => process.exit(1));
       },
     );
+
+  loadPromise(run(), {
+    text: 'Performing a run',
+    successText: 'Run complete',
+    failText: 'Failed to perform a run',
+  })
+    .then(() => process.exit(0))
+    .catch(() => process.exit(1));
 }
 
 if (process.argv[2] === '--dry-run') startDryRun();
