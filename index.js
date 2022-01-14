@@ -135,8 +135,12 @@ async function initialise() {
           if (
             path.lastIndexOf('.') === -1 ||
             !allowedExtensions.includes(extension)
-          )
-            throw new Error(`Invalid file extension '.${extension}' in the path '${path}' of '${collectionName}'.`);
+          ) {
+            logError(
+              `Invalid file extension '.${extension}' in the path '${path}' of '${collectionName}'.`,
+            );
+            return;
+          }
 
           realData = await import(path);
         } catch (error) {
