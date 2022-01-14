@@ -122,7 +122,7 @@ async function initialise() {
         logWarn(
           `Both data and path were provided in '${collectionName}', using ${
             config.preferPath ? 'path' : 'data'
-          }. You can change the configuration to use only one or the other.`,
+          }. To change this behavior, change 'preferPath' in config.js.`,
         );
 
       if (config.preferPath ? !path : data) realData = data;
