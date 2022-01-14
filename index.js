@@ -136,7 +136,7 @@ async function initialise() {
             path.lastIndexOf('.') === -1 ||
             !allowedExtensions.includes(extension)
           )
-            throw new Error('Invalid path extension: ' + extension);
+            throw new Error(`Invalid file extension '.${extension}' in the path '${path}' of '${collectionName}'.`);
 
           realData = await import(path);
         } catch (error) {
