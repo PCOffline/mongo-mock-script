@@ -128,6 +128,16 @@ async function initialise() {
       if (config.preferPath ? !path : data) realData = data;
       else {
         try {
+          const extensionIndex = path.lastIndexOf('.');
+          const extension = path.slice(extensionIndex + 1);
+          const allowedExtensions = ['json', 'js', 'mjs'];
+
+          if (
+            path.lastIndexOf('.') === -1 ||
+            !allowedExtensions.includes(extension)
+          )
+            throw new Error('Invalid path extension: ' + extension);
+
           realData = await import(path);
         } catch (error) {
           logError(`The path '${path}' of '${collectionName}' is invalid!`);
@@ -265,6 +275,3 @@ function startRun() {
     .then(() => process.exit(0))
     .catch(() => process.exit(1));
 }
-
-if (process.argv[2] === '--dry-run') startDryRun();
-else startRun();
