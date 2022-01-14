@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/PCOffline/reset-db/compare/v0.2.0...v0.2.1) (2022-01-14)
+
+
+### Features
+
+* add default icons to log messages ([3f5f729](https://github.com/PCOffline/reset-db/commit/3f5f7290232c964af456e97fe1e2a74db776ca59))
+
+
+### Bug Fixes
+
+* noPrompt stalls forever ([5e6d868](https://github.com/PCOffline/reset-db/commit/5e6d868ed1e6dd5d73cdf9557a44436c400cc86d))
+* path & data resolution ([c2792e3](https://github.com/PCOffline/reset-db/commit/c2792e391695011ab867a3686412f6533e92c8e5))
+
 ## [0.2.0](https://github.com/PCOffline/reset-db/compare/v0.1.1...v0.2.0) (2022-01-12)
 
 ### Features
