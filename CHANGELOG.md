@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [0.6.0](https://github.com/PCOffline/reset-db/compare/v0.5.3...v0.6.0) (2022-01-12)
+## [0.2.0](https://github.com/PCOffline/reset-db/compare/v0.1.1...v0.2.0) (2022-01-12)
 
 ### Features
 
@@ -15,13 +15,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 * standard collection process ([836141b](https://github.com/PCOffline/reset-db/commit/836141bea70b7a8768207d711d0e2fe50bb93855))
 
-### [0.5.3](https://github.com/PCOffline/reset-db/compare/v0.5.2...v0.5.3) (2022-01-12)
+### [0.1.1](https://github.com/PCOffline/reset-db/compare/v0.1.0...v0.1.1) (2022-01-12)
 
 ### Refactor
 
 * Change noConfirmation to noPrompt
 
-## 0.5.0
+## 0.1.0
 ### Features
 
 * add config ([882c0c8](https://github.com/PCOffline/reset-db/commit/882c0c812f5b034fa618a09df08849f2bc3e372c))
