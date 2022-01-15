@@ -279,3 +279,7 @@ function startRun() {
     .then(() => process.exit(0))
     .catch(() => process.exit(1));
 }
+
+if (process.argv[2] === '--dry-run') startDryRun();
+else startRun();
+
