@@ -98,6 +98,29 @@ function logDebugData() {
   logDebug('Standard Collections:', JSON.stringify(standardCollections));
 }
 
+async function importFromPath({ path, collectionName }) {
+  if (!path) throw new Error('No path provided!');
+
+  const extensionIndex = path.lastIndexOf('.');
+  const extension = path.slice(extensionIndex + 1);
+  const allowedExtensions = ['json', 'js', 'mjs'];
+
+  if (path.lastIndexOf('.') === -1 || !allowedExtensions.includes(extension))
+    throw new Error(
+      `Invalid file extension '.${extension}' in the path '${path}' of '${collectionName}'.`,
+    );
+
+  try {
+    const properties = await import(path);
+
+    logDebug(properties);
+
+    return properties;
+  } catch (error) {
+    logDebug(error);
+  }
+}
+
 async function initialise() {
   // Connect to mongoose
   await loadPromise(mongoose.connect(config.mongoUri), {
