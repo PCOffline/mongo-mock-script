@@ -1,5 +1,7 @@
-import { Schema } from 'mongoose';
-import { collectionNames, SmsTypes, SmsStatuses } from '../utils';
+import mongoose from 'mongoose';
+import { collectionNames, SmsTypes, SmsStatuses } from './utils.js';
+
+const { Schema } = mongoose;
 
 export const model = collectionNames.sms;
 export const schema = new Schema(

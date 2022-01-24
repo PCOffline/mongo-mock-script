@@ -1,5 +1,7 @@
-import { Schema } from 'mongoose';
-import { collectionNames, TargetTypes } from '../utils';
+import mongoose from 'mongoose';
+import { collectionNames, TargetTypes } from './utils.js';
+
+const { Schema } = mongoose;
 
 export const model = collectionNames.temporaryInstance;
 export const schema = new Schema(

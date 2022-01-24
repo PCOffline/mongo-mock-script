@@ -54,3 +54,11 @@ export const SmsStatuses = {
   failed: 'failed',
   queued: 'queued',
 };
+
+export const NodeType = {
+  Interview: 'INTERVIEW',
+  Exam: 'EXAM',
+  Physical: 'PHYSICAL',
+  Unknown: 'UNKNOWN',
+  Classified: 'CLASSIFIED',
+};

@@ -1,5 +1,7 @@
-import { Schema } from 'mongoose';
-import { collectionNames, Role } from '../utils';
+import mongoose from 'mongoose';
+import { collectionNames, Role } from './utils.js';
+
+const { Schema } = mongoose;
 
 export const model = collectionNames.user;
 export const schema = new Schema(
