@@ -163,11 +163,25 @@ async function evaluateCollectionValues({
 
 async function initialise() {
   // Connect to mongoose
-  await loadPromise(mongoose.connect(config.mongoUri), {
-    text: 'Connecting to MongoDB',
-    successText: 'Connected to MongoDB',
-    failText: 'Failed to connect to MongoDB',
-  });
+  await loadPromise(
+    mongoose.connect(
+      config.mongoUri ??
+        process.env[
+          [
+            'MONGO_URI',
+            'MONGODB_URI',
+            'mongoUri',
+            'DB_URI',
+            'DATABASE_URI',
+          ].find((name) => name in process.env)
+        ],
+    ),
+    {
+      text: 'Connecting to MongoDB',
+      successText: 'Connected to MongoDB',
+      failText: 'Failed to connect to MongoDB',
+    },
+  );
 
   // Create all models
   const modelsPromise = () =>
