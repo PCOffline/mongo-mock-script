@@ -8,6 +8,8 @@ With this script you can drop any collection and swiftly insert as many document
 
 `cd reset-db`
 
+`npm install --production`
+
 # Config
 
 Before running, you'll have to configure the script.
@@ -100,3 +102,46 @@ export default {
 
 Run using `npm start` for the process to begin.
 You can also use `npm run dry` to see all the changes that would be made.
+
+For our project, you can generate JSON files of the mock data by running `npm run db` in `itur-client`.
+Then, copy each JSON array to its matching file (e.g. malshabs.json to malshabs.js) and replace the default export with the array.
+
+Example:
+
+Output of `npm run db` in `itur-client/json/malshabs.json`:
+
+```json
+[
+  {
+    "identityNumber": "222222222",
+    "personalNumber": "0",
+    "personalPhoneNumber": "05000000000000",
+    "firstName": "נועה",
+    "lastName": "קירל",
+    "gender": 2
+  }
+]
+```
+
+Current content of `reset-db/collections/malshabs.js`:
+
+```js
+// ...
+// Data
+export default [
+  {
+    identityNumber: '555555555',
+    personalPhoneNumber: '05000000000000',
+    personalNumber: '0',
+    firstName: 'ישראל',
+    lastName: 'ישראלי',
+    gender: 1,
+  },
+];
+```
+
+- Delete everything after `export default` and paste in the contents of `itur-client/json/malshabs.json`
+- SHIFT + ALT + F to Format Code
+- CTRL + S
+
+If you want to change the schema or model name, do the same steps for the `schema`/`model` variables respectively.
