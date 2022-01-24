@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/PCOffline/reset-db/compare/v0.3.0...v0.4.0) (2022-01-24)
+
+
+### Features
+
+* add support for MongoDB URI Environment Var ([3535d59](https://github.com/PCOffline/reset-db/commit/3535d599696b155e637dad88c93401af97a79b12))
+* **logging:** add scope to debug logs ([420d9e7](https://github.com/PCOffline/reset-db/commit/420d9e70eab01e1619e08dd7daad894260a7c4f1))
+
 ## [0.3.0](https://github.com/PCOffline/reset-db/compare/v0.2.2...v0.3.0) (2022-01-24)
 
 
