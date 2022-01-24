@@ -98,6 +98,69 @@ function logDebugData() {
   logDebug('Standard Collections:', JSON.stringify(standardCollections));
 }
 
+function validatePath({ path, collectionName }) {
+  const extensionIndex = path.lastIndexOf('.');
+  const extension = path.slice(extensionIndex + 1);
+  const allowedExtensions = ['json', 'js', 'mjs'];
+
+  if (path.lastIndexOf('.') === -1 || !allowedExtensions.includes(extension)) {
+    logError(
+      `Invalid file extension '.${extension}' in the path '${path}' of '${collectionName}'.`,
+    );
+    if (extension === 'cjs')
+      logWarn(
+        'CommonJS is not supported in this script, use ES6 modules instead',
+      );
+    return false;
+  }
+
+  return true;
+}
+
+async function evaluateCollectionValues({
+  path,
+  collectionName,
+  data,
+  model,
+  schema,
+}) {
+  const { preferPath } = config;
+  let importedValues;
+
+  const getStandardValue = ({ configValue, pathValue }) =>
+    preferPath ? pathValue ?? configValue : configValue;
+
+  if (path)
+    try {
+      if (!validatePath({ path, collectionName })) return null;
+
+      importedValues = await import(path);
+    } catch (error) {
+      logError(`The path '${path}' of '${collectionName}' is invalid!`);
+      logDebug('Path error:', error);
+
+      return null;
+    }
+
+  return {
+    standardData: getStandardValue({
+      pathValue:
+        importedValues.default?.data ??
+        importedValues.default ??
+        importedValues.data,
+      configValue: data,
+    }),
+    standardModel: getStandardValue({
+      pathValue: importedValues.default?.model ?? importedValues.model,
+      configValue: model,
+    }),
+    standardSchema: getStandardValue({
+      pathValue: importedValues.default?.schema ?? importedValues.schema,
+      configValue: schema,
+    }),
+  };
+}
+
 async function initialise() {
   // Connect to mongoose
   await loadPromise(mongoose.connect(config.mongoUri), {
@@ -106,44 +169,57 @@ async function initialise() {
     failText: 'Failed to connect to MongoDB',
   });
 
-  const modelsPromise = promisify(() => {
-    // Create all models
-    Object.keys(config.collections).forEach(async (collectionName) => {
-      const { model, schema, path, data } = config.collections[collectionName];
+  // Create all models
+  const modelsPromise = () =>
+    Promise.all(
+      Object.keys(config.collections).map(async (collectionName) => {
+        const { model, schema, path, data } =
+          config.collections[collectionName];
 
-      if (!data?.length && !path) {
-        logError(`No data or path for collection '${collectionName}'!`);
-        return;
-      }
-
-      let realData;
-
-      if (path && data?.length)
-        logWarn(
-          `Both data and path were provided in '${collectionName}', using ${
-            config.preferPath ? 'path' : 'data'
-          }. To change this behavior, change 'preferPath' in config.js.`,
-        );
-
-      if (config.preferPath ? !path : data) realData = data;
-      else {
-        try {
-          realData = await import(path);
-        } catch (error) {
-          logError(`The path '${path}' of '${collectionName}' is invalid!`);
-          logDebug(error);
-
+        if (!data?.length && !path) {
+          logError(`No data or path for '${collectionName}'!`);
           return;
         }
-      }
 
-      standardCollections.push({
-        name: collectionName,
-        model: mongoose.model(model, schema, collectionName),
-        data: realData,
-      });
-    });
-  });
+        if (path && data?.length)
+          logWarn(
+            `Both data and path were provided in '${collectionName}', using ${
+              config.preferPath ? 'path' : 'data'
+            }. To change this behavior, change 'preferPath' in config.js.`,
+          );
+
+        const { standardModel, standardSchema, standardData, error } =
+          await loadPromise(
+            evaluateCollectionValues({
+              path,
+              collectionName,
+              model,
+              schema,
+              data,
+            }),
+            {
+              successText: `Evaluated the values of '${collectionName}'`,
+              failText: `Failed to evaluate the values of '${collectionName}'`,
+              text: `Evaluating the values of '${collectionName}'`,
+            },
+          ).catch(() => ({ error: true }));
+
+        if (error) return;
+
+        if (!(standardData && standardSchema && standardModel)) {
+          logError(
+            `Invalid data, schema or model name for collection '${collectionName}'!`,
+          );
+          return;
+        }
+
+        standardCollections.push({
+          name: collectionName,
+          model: mongoose.model(standardModel, standardSchema, collectionName),
+          data: standardData,
+        });
+      }),
+    );
 
   return loadPromise(modelsPromise, {
     text: 'Creating models',

@@ -41,14 +41,60 @@ export default {
           fieldName: 'value',
         },
       ],
-      path: 'path/to/file.json', // alternative to 'data', can be either json or js with default export
+      path: 'path/to/file.json', // alternative to 'data', can be either .json, .js or .mjs with default export
     },
   },
 };
-
 ```
 
-It's recommended to use the `path` instead of the `data` to avoid clustering and make modifying the data easier.
+Using the `path` property, you can refer the config to a file that contains the data to be inserted, as well as all the other properties, such as the schema, and model.
+Here's a sample file:
+
+```js
+export const model = 'modelName';
+export const schema = new Schema({
+  fieldName: {
+    type: Schema.Types.String,
+    required: true,
+  },
+});
+export const data = [
+  {
+    fieldName: 'value',
+  },
+];
+```
+
+The naming is significant and should match the name of the property in the `config.js` file, with the exception of `data`, that can be a default export as well:
+
+```js
+const variableName = [
+  {
+    fieldName: 'value',
+  },
+];
+
+export default variableName; // Will be treated as data
+```
+
+You can also defaultly export an entire collection configuration as one whole object from a path:
+
+```js
+export default {
+  model: 'modelName',
+  schema: new Schema({
+    fieldName: {
+      type: Schema.Types.String,
+      required: true,
+    },
+  }),
+  data: [
+    {
+      fieldName: 'value',
+    },
+  ],
+};
+```
 
 # Usage
 
