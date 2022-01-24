@@ -41,7 +41,7 @@ export default {
           fieldName: 'value',
         },
       ],
-      path: 'path/to/file.json', // alternative to 'data', can be either json or js with default export
+      path: 'path/to/file.json', // alternative to 'data', can be either .json, .js or .mjs with default export
     },
   },
 };
