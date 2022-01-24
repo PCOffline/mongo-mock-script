@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/PCOffline/reset-db/compare/v0.2.2...v0.3.0) (2022-01-24)
+
+
+### Features
+
+* add option to import from path ([75f28b6](https://github.com/PCOffline/reset-db/commit/75f28b6ebe897f53fa52c7cc9c4ffedab7be8a62))
+* add path extension validation ([276d0c0](https://github.com/PCOffline/reset-db/commit/276d0c005419bd2407dc6e612ff705fa816e5ee3))
+* import properties from path ([cf937e5](https://github.com/PCOffline/reset-db/commit/cf937e577ad2a993abcdc14704f0993abe725051))
+
+
+### Bug Fixes
+
+* make extension validation log error and not debug ([f8df66e](https://github.com/PCOffline/reset-db/commit/f8df66e5ea2db25f9e5f575cee3ccc1b08c55a35))
+* script not running ([6565404](https://github.com/PCOffline/reset-db/commit/656540437bbc117a40266d1932fca1db327ff26f))
+
 ### [0.2.2](https://github.com/PCOffline/reset-db/compare/v0.2.1...v0.2.2) (2022-01-14)
 
 ### [0.2.1](https://github.com/PCOffline/reset-db/compare/v0.2.0...v0.2.1) (2022-01-14)
