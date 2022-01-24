@@ -77,6 +77,25 @@ const variableName = [
 export default variableName; // Will be treated as data
 ```
 
+You can also defaultly export an entire collection configuration as one whole object from a path:
+
+```js
+export default {
+  model: 'modelName',
+  schema: new Schema({
+    fieldName: {
+      type: Schema.Types.String,
+      required: true,
+    },
+  }),
+  data: [
+    {
+      fieldName: 'value',
+    },
+  ],
+};
+```
+
 # Usage
 
 Run using `npm start` for the process to begin.
