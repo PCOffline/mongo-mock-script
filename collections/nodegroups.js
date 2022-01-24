@@ -3,7 +3,7 @@ import { collectionNames } from './utils.js';
 
 const { Schema } = mongoose;
 
-export const model = collectionNames.nodegroup;
+export const model = collectionNames.nodeGroup;
 export const schema = new Schema(
   {
     name: {
