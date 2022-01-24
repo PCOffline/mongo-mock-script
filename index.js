@@ -93,9 +93,9 @@ const standardCollections = [];
 function logDebugData() {
   if (logLevel > logLevels.debug) return;
 
-  logDebug('Log Level:', logLevel);
-  logDebug('Config:', JSON.stringify(config));
-  logDebug('Standard Collections:', JSON.stringify(standardCollections));
+  logDebug(`[${logDebugData.name}]`, 'Log Level:', logLevel);
+  logDebug(`[${logDebugData.name}]`, 'Config:', JSON.stringify(config));
+  logDebug(`[${logDebugData.name}]`, 'Standard Collections:', JSON.stringify(standardCollections));
 }
 
 function validatePath({ path, collectionName }) {
@@ -137,7 +137,7 @@ async function evaluateCollectionValues({
       importedValues = await import(path);
     } catch (error) {
       logError(`The path '${path}' of '${collectionName}' is invalid!`);
-      logDebug('Path error:', error);
+      logDebug(`[${evaluateCollectionValues.name}]`, error);
 
       return null;
     }
@@ -163,11 +163,25 @@ async function evaluateCollectionValues({
 
 async function initialise() {
   // Connect to mongoose
-  await loadPromise(mongoose.connect(config.mongoUri), {
-    text: 'Connecting to MongoDB',
-    successText: 'Connected to MongoDB',
-    failText: 'Failed to connect to MongoDB',
-  });
+  await loadPromise(
+    mongoose.connect(
+      config.mongoUri ??
+        process.env[
+          [
+            'MONGO_URI',
+            'MONGODB_URI',
+            'mongoUri',
+            'DB_URI',
+            'DATABASE_URI',
+          ].find((name) => name in process.env)
+        ],
+    ),
+    {
+      text: 'Connecting to MongoDB',
+      successText: 'Connected to MongoDB',
+      failText: 'Failed to connect to MongoDB',
+    },
+  );
 
   // Create all models
   const modelsPromise = () =>
@@ -256,7 +270,7 @@ async function dryRun() {
         standardCollections.map(({ name, data }) =>
           data
             ? `${colors.special(name)} - ${colors.special(data.length)}`
-            : logDebug(`Data is undefined in ${name}`),
+            : logDebug(`[${dryRun.name}] Data is undefined in ${name}`),
         ),
       ),
     ]),
