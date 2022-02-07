@@ -62,7 +62,7 @@ schema.virtual('id').get(function () {
 // Data
 export default [
   {
-    id: '507f1f77bcf86cd799439333',
+    _id: '507f1f77bcf86cd799439333',
     questions: [
       {
         title: 'מה השם שלך?',
@@ -121,7 +121,7 @@ export default [
     isTemp: true,
   },
   {
-    id: '6193aa3f3cc7724ed26138d8',
+    _id: '6193aa3f3cc7724ed26138d8',
     questions: [
       {
         title: 'מה השם שלך?',

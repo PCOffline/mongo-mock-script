@@ -55,7 +55,7 @@ schema.virtual('id').get(function () {
 // Data
 export default [
   {
-    id: '507f1f77bcf86cd799439333',
+    _id: '507f1f77bcf86cd799439333',
     questions: [
       {
         title: 'מה השם שלך?',

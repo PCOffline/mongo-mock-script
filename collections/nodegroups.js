@@ -41,13 +41,13 @@ schema.virtual('id').get(function () {
 // Data
 export default [
   {
-    id: '507f1f77bcf86cd799439055',
+    _id: '507f1f77bcf86cd799439055',
     name: 'מסלול רגיל',
     unitId: '507f191e810c19729de861ea',
     usersIds: ['507f1f77bcf86cd799439033', '507f1f77bcf86cd799439022'],
   },
   {
-    id: '507f1f77bcf86cd799439054',
+    _id: '507f1f77bcf86cd799439054',
     name: 'מסלול אש',
     unitId: '507f191e810c19729de861ea',
     usersIds: [
@@ -57,7 +57,7 @@ export default [
     ],
   },
   {
-    id: '507f1f77bcf86cd799439057',
+    _id: '507f1f77bcf86cd799439057',
     name: 'מסלול פסיכולוגים',
     unitId: '507f191e810c19729de863ea',
     usersIds: [
@@ -68,7 +68,7 @@ export default [
     ],
   },
   {
-    id: '507f1f77bcf86cd799439058',
+    _id: '507f1f77bcf86cd799439058',
     name: 'מסלול פסיכולוגים שני',
     unitId: '507f191e810c19729de863ea',
     usersIds: ['507f1f77bcf86cd799439024'],

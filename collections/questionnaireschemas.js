@@ -47,7 +47,7 @@ schema.virtual('id').get(function () {
 // Data
 export default [
   {
-    id: '507f1f77bcf86cd799439055',
+    _id: '507f1f77bcf86cd799439055',
     name: 'שאלון 1',
     targetTypes: ['MALSHAB'],
     questions: [
@@ -65,7 +65,7 @@ export default [
     updatedBy: '507f1f77bcf86cd799439031',
   },
   {
-    id: '507f1f77bcf86cd799439056',
+    _id: '507f1f77bcf86cd799439056',
     name: 'שאלון 2',
     targetTypes: ['MALSHAB', 'INTERVIEWER'],
     questions: [
@@ -83,7 +83,7 @@ export default [
     updatedBy: '507f1f77bcf86cd799439031',
   },
   {
-    id: '507f1f77bcf86cd799439444',
+    _id: '507f1f77bcf86cd799439444',
     targetTypes: ['PSYCHOLOGIST', 'INTERVIEWER_PSYCHOLOGIST'],
     name: 'דוגמה למד"ה',
     questions: [

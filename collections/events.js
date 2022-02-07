@@ -96,7 +96,7 @@ schema.virtual('nodeData', {
 // Data
 export default [
   {
-    id: '123abc1e810c19729de872eb',
+    _id: '123abc1e810c19729de872eb',
     node: {
       id: '5544',
       name: 'שלב מסווג',
@@ -137,7 +137,7 @@ export default [
     },
   },
   {
-    id: '123abc1e810c19729de872ec',
+    _id: '123abc1e810c19729de872ec',
     node: {
       id: '4457',
       name: 'שלב סודי',
@@ -161,7 +161,7 @@ export default [
     },
   },
   {
-    id: '123abc1e810c19729de872ed',
+    _id: '123abc1e810c19729de872ed',
     node: {
       id: '8888',
       name: 'שלב של תמר',
@@ -178,7 +178,7 @@ export default [
     results: {},
   },
   {
-    id: '123abc1e810c19729de872ee',
+    _id: '123abc1e810c19729de872ee',
     node: {
       id: '5555',
       name: 'שלב של ולדי',
@@ -202,7 +202,7 @@ export default [
     },
   },
   {
-    id: '123abc1e810c19729de872ef',
+    _id: '123abc1e810c19729de872ef',
     node: {
       id: '8897',
       name: 'שלב פיסי אדום',
@@ -212,13 +212,13 @@ export default [
       firstName: 'ישראל',
       lastName: 'ישראלי',
     },
-    time: `${new Date().toISOString().slice(0, 10)}T14:00:07.996+00:00'`,
+    time: `${new Date().toISOString().slice(0, 10)}T14:00:07.996+00:00`,
     location: 'not in mariv',
     interviewersIds: [],
     results: {},
   },
   {
-    id: '123abc1e810c19729de872e3',
+    _id: '123abc1e810c19729de872e3',
     node: {
       id: '1111',
       name: 'שלב של כרמל',

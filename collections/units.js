@@ -31,15 +31,15 @@ schema.virtual('id').get(function () {
 // Data
 export default [
   {
-    id: '507f191e810c19729de861ea',
+    _id: '507f191e810c19729de861ea',
     name: 'יחידה 1',
   },
   {
-    id: '507f191e810c19729de863ea',
+    _id: '507f191e810c19729de863ea',
     name: 'יחידת פסיכולוגים',
   },
   {
-    id: '507f191e810c19729de862ea',
+    _id: '507f191e810c19729de862ea',
     name: 'יחידה 2',
   },
 ];

@@ -60,7 +60,7 @@ schema.virtual('id').get(function () {
 // Data
 export default [
   {
-    id: '123abc1e810c19729de862ea',
+    _id: '123abc1e810c19729de862ea',
     target: '222222222',
     message: 'נדחה ב5 דקות',
     delayCount: 5,
@@ -73,7 +73,7 @@ export default [
   {
     message:
       'מלש"ב יקר, יש לך ראיון מחר! אנא התייצב לראיון הנדרש כ-5 דקות מראש',
-    id: '123abc1e810c19729de864aa',
+    _id: '123abc1e810c19729de864aa',
     target: '222222222',
     type: 'EVENT',
     sendTime: `${new Date().toISOString().slice(0, 10)}T12:00:01.996+00:00`,
@@ -84,7 +84,7 @@ export default [
   {
     message:
       'מלש"ב יקר, יש לך ראיון מחר! אנא התייצב לראיון הנדרש כ-5 דקות מראש',
-    id: '123abc1e810c19729de864ab',
+    _id: '123abc1e810c19729de864ab',
     target: '999999999',
     type: 'EVENT',
     sendTime: `${new Date().toISOString().slice(0, 10)}T14:00:01.996+00:00`,
@@ -95,7 +95,7 @@ export default [
   {
     message:
       'מלש"ב יקר, יש לך ראיון מחר! אנא התייצב לראיון הנדרש כ-5 דקות מראש',
-    id: '123abc1e810c19729de864ac',
+    _id: '123abc1e810c19729de864ac',
     target: '999999999',
     type: 'EVENT',
     sendTime: `${new Date().toISOString().slice(0, 10)}T13:00:01.996+00:00`,
@@ -106,7 +106,7 @@ export default [
   {
     message:
       'מלש"ב יקר, יש לך ראיון מחר! אנא התייצב לראיון הנדרש כ-5 דקות מראש',
-    id: '123abc1e810c19729de864ad',
+    _id: '123abc1e810c19729de864ad',
     target: '555555555',
     type: 'EVENT',
     sendTime: `${new Date().toISOString().slice(0, 10)}T12:00:01.996+00:00`,
@@ -117,7 +117,7 @@ export default [
   {
     message:
       'מלש"ב יקר, יש לך ראיון מחר! אנא התייצב לראיון הנדרש כ-5 דקות מראש',
-    id: '123abc1e810c19729de864ae',
+    _id: '123abc1e810c19729de864ae',
     target: '999999999',
     type: 'EVENT',
     sendTime: `${new Date().toISOString().slice(0, 10)}T12:00:01.996+00:00`,
