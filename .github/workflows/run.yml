@@ -5,7 +5,11 @@ name: Run Script
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 22 * * *'
+
+env:
+  DB_URI: ${{secrets.DB_URI}}
+
 jobs:
   build:
 
