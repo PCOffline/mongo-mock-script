@@ -104,8 +104,6 @@ export default [
     name: 'דוגמה למד"ה',
     createdBy: '507f1f77bcf86cd799439024',
     updatedBy: '507f1f77bcf86cd799439024',
-    createdAt: '2021-08-31T13:48:48.673Z',
-    updatedAt: '2021-08-31T13:48:48.673Z',
     target: {
       role: 'DIAGNOSER',
       targetId: '507f1f77bcf86cd799439029',
