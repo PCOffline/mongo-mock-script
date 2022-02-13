@@ -41,6 +41,11 @@ export const schema = new Schema(
       enum: Object.values(SmsStatuses).map((status) => status.toUpperCase()),
       required: true,
     },
+    retryCount: {
+      type: Number,
+      required: false,
+      default: 0,
+    }
   },
   {
     timestamps: true,
@@ -69,6 +74,7 @@ export default [
     eventId: '123abc1e810c19729de872eb',
     status: 'DELIVERED',
     twilioSid: 'SM3e9e1ab29977234ff3dcf6388a6d1d59',
+    retryCount: 0,
   },
   {
     message:
@@ -80,6 +86,7 @@ export default [
     eventId: '123abc1e810c19729de872eb',
     status: 'DELIVERED',
     twilioSid: 'SMeafb5e299b5a8ada5977141f82cb09df',
+    retryCount: 0,
   },
   {
     message:
@@ -91,6 +98,7 @@ export default [
     eventId: '123abc1e810c19729de872ed',
     status: 'UNDELIVERED',
     twilioSid: 'SM8a1d06cbf8a02494d75e503c4ae8a2b0',
+    retryCount: 0,
   },
   {
     message:
@@ -102,6 +110,7 @@ export default [
     eventId: '123abc1e810c19729de872ec',
     status: 'FAILED',
     twilioSid: 'SM84a75a2f54362d0f2df074708e91d2be',
+    retryCount: 0,
   },
   {
     message:
@@ -113,6 +122,7 @@ export default [
     eventId: '123abc1e810c19729de872ef',
     status: 'SENT',
     twilioSid: 'SM30772c6ca220430c06f7fb8082122795',
+    retryCount: 0,
   },
   {
     message:
@@ -124,5 +134,6 @@ export default [
     eventId: '123abc1e810c19729de872ee',
     status: 'QUEUED',
     twilioSid: 'SM8738903bd1771748d242b7b6a61b0cdb',
+    retryCount: 0,
   },
 ];
