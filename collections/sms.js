@@ -98,7 +98,7 @@ export default [
     eventId: '123abc1e810c19729de872ed',
     status: 'UNDELIVERED',
     twilioSid: 'SM8a1d06cbf8a02494d75e503c4ae8a2b0',
-    retryCount: 0,
+    retryCount: 2,
   },
   {
     message:
@@ -110,7 +110,7 @@ export default [
     eventId: '123abc1e810c19729de872ec',
     status: 'FAILED',
     twilioSid: 'SM84a75a2f54362d0f2df074708e91d2be',
-    retryCount: 0,
+    retryCount: 3,
   },
   {
     message:
