@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.0.0",
-    "mongodb": "^4.4.0",
+    "mongodb": "^4.4.1",
     "mongoose": "^6.2.4",
     "ora": "^6.1.0"
   },
