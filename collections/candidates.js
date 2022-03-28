@@ -3,7 +3,7 @@ import { collectionNames } from './utils.js';
 
 const { Schema } = mongoose;
 
-export const model = collectionNames.malshab;
+export const model = collectionNames.candidate;
 export const schema = new Schema(
   {
     identityNumber: {

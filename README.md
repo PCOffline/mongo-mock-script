@@ -104,11 +104,11 @@ Run using `npm start` for the process to begin.
 You can also use `npm run dry` to see all the changes that would be made.
 
 For our project, you can generate JSON files of the mock data by running `npm run db` in `itur-client`.
-Then, copy each JSON array to its matching file (e.g. malshabs.json to malshabs.js) and replace the default export with the array.
+Then, copy each JSON array to its matching file (e.g. candidates.json to candidates.js) and replace the default export with the array.
 
 Example:
 
-Output of `npm run db` in `itur-client/json/malshabs.json`:
+Output of `npm run db` in `itur-client/json/candidates.json`:
 
 ```json
 [
@@ -123,7 +123,7 @@ Output of `npm run db` in `itur-client/json/malshabs.json`:
 ]
 ```
 
-Current content of `reset-db/collections/malshabs.js`:
+Current content of `reset-db/collections/candidates.js`:
 
 ```js
 // ...
@@ -140,7 +140,7 @@ export default [
 ];
 ```
 
-- Delete everything after `export default` and paste in the contents of `itur-client/json/malshabs.json`
+- Delete everything after `export default` and paste in the contents of `itur-client/json/candidates.json`
 - SHIFT + ALT + F to Format Code
 - CTRL + S
 

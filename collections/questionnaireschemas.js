@@ -49,7 +49,7 @@ export default [
   {
     _id: '507f1f77bcf86cd799439055',
     name: 'שאלון 1',
-    targetTypes: ['MALSHAB'],
+    targetTypes: ['CANDIDATE'],
     questions: [
       {
         title: 'מה השם שלך?',
@@ -65,7 +65,7 @@ export default [
   {
     _id: '507f1f77bcf86cd799439056',
     name: 'שאלון 2',
-    targetTypes: ['MALSHAB', 'INTERVIEWER'],
+    targetTypes: ['CANDIDATE', 'INTERVIEWER'],
     questions: [
       {
         title: 'מה השם שלך?',

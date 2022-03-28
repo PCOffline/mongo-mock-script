@@ -15,7 +15,7 @@ export const schema = new Schema(
         required: true,
       },
     },
-    malshabShort: {
+    candidateShort: {
       id: {
         type: String,
         required: true,
@@ -101,7 +101,7 @@ export default [
       id: '5544',
       name: 'שלב מסווג',
     },
-    malshabShort: {
+    candidateShort: {
       id: '222222222',
       firstName: 'נועה',
       lastName: 'קירל',
@@ -142,7 +142,7 @@ export default [
       id: '4457',
       name: 'שלב סודי',
     },
-    malshabShort: {
+    candidateShort: {
       id: '999999999',
       firstName: 'דנה',
       lastName: 'זרמון',
@@ -166,7 +166,7 @@ export default [
       id: '8888',
       name: 'שלב של תמר',
     },
-    malshabShort: {
+    candidateShort: {
       id: '999999999',
       firstName: 'דנה',
       lastName: 'זרמון',
@@ -183,7 +183,7 @@ export default [
       id: '5555',
       name: 'שלב של ולדי',
     },
-    malshabShort: {
+    candidateShort: {
       id: '999999999',
       firstName: 'דנה',
       lastName: 'זרמון',
@@ -207,7 +207,7 @@ export default [
       id: '8897',
       name: 'שלב פיסי אדום',
     },
-    malshabShort: {
+    candidateShort: {
       id: '555555555',
       firstName: 'ישראל',
       lastName: 'ישראלי',
@@ -223,7 +223,7 @@ export default [
       id: '1111',
       name: 'שלב של כרמל',
     },
-    malshabShort: {
+    candidateShort: {
       id: '333333333',
       firstName: 'חיים',
       lastName: 'כהן',

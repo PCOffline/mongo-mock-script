@@ -4,7 +4,7 @@ export default {
   logLevel: 'info', // 'debug' | 'info' | 'warn' | 'error' | 'silent'
   collections: {
     events: { path: './collections/events.js' },
-    malshabs: { path: './collections/malshabs.js' },
+    candidates: { path: './collections/candidates.js' },
     nodegroups: { path: './collections/nodegroups.js' },
     nodes: { path: './collections/nodes.js' },
     questionnaireinstances: { path: './collections/questionnaireinstances.js' },

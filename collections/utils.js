@@ -1,6 +1,6 @@
 export const collectionNames = {
   event: 'Event',
-  malshab: 'Malshab',
+  candidate: 'Candidate',
   node: 'Node',
   nodeGroup: 'NodeGroup',
   unit: 'Unit',
@@ -31,7 +31,7 @@ export const TargetTypes = {
   Diagnoser: Role.Diagnoser,
   Mada: Role.Mada,
   InterviewerPsychologist: Role.InterviewerPsychologist,
-  Malshab: 'MALSHAB',
+  Candidate: 'CANDIDATE',
 };
 
 export const ModifyTargetTypes = {
