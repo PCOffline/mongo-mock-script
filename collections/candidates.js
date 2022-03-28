@@ -111,14 +111,12 @@ export default [
     medicalProfile: 82,
     kaba: 56,
     dapar: 90,
-    addresses: [
-      {
-        cityId: 1,
-        cityName: 'ראשון לציון',
-        houseNumber: 12,
-        street: 'הרצל',
-      },
-    ],
+    addresses: [{
+      cityId: 1,
+      cityName: 'ראשון לציון',
+      houseNumber: 12,
+      street: 'הרצל',
+    }],
     birthCountry: 'רוסיה',
     imigrationDate: '2005-05-13T00:00:07.996+00:00',
     hasIsraeliCitizenship: true,
@@ -127,6 +125,7 @@ export default [
     schoolName: 'בן גוריון',
     email: 'noa@gmail.com',
     attachments: [],
+    type: 'MALSHAB',
   },
   {
     identityNumber: '333333333',
@@ -139,14 +138,12 @@ export default [
     medicalProfile: 82,
     kaba: 56,
     dapar: 90,
-    addresses: [
-      {
-        cityId: 1,
-        cityName: 'ראשון לציון',
-        houseNumber: 12,
-        street: 'הרצל',
-      },
-    ],
+    addresses: [{
+      cityId: 1,
+      cityName: 'ראשון לציון',
+      houseNumber: 12,
+      street: 'הרצל',
+    }],
     birthCountry: 'רוסיה',
     imigrationDate: '2005-05-13T00:00:07.996+00:00',
     hasIsraeliCitizenship: true,
@@ -155,6 +152,7 @@ export default [
     schoolName: 'בן גוריון',
     email: 'adi@gmail.com',
     attachments: [],
+    type: 'MALSHAB',
   },
   {
     identityNumber: '555555555',
@@ -167,14 +165,12 @@ export default [
     medicalProfile: 82,
     kaba: 56,
     dapar: 90,
-    addresses: [
-      {
-        cityId: 1,
-        cityName: 'ראשון לציון',
-        houseNumber: 12,
-        street: 'הרצל',
-      },
-    ],
+    addresses: [{
+      cityId: 1,
+      cityName: 'ראשון לציון',
+      houseNumber: 12,
+      street: 'הרצל',
+    }],
     birthCountry: 'רוסיה',
     imigrationDate: '2005-05-13T00:00:07.996+00:00',
     hasIsraeliCitizenship: true,
@@ -183,6 +179,7 @@ export default [
     schoolName: 'בן גוריון',
     email: 'israel@gmail.com',
     attachments: [],
+    type: 'MALSHAB',
   },
   {
     identityNumber: '999999999',
@@ -195,14 +192,12 @@ export default [
     medicalProfile: 82,
     kaba: 56,
     dapar: 90,
-    addresses: [
-      {
-        cityId: 1,
-        cityName: 'ראשון לציון',
-        houseNumber: 12,
-        street: 'הרצל',
-      },
-    ],
+    addresses: [{
+      cityId: 1,
+      cityName: 'ראשון לציון',
+      houseNumber: 12,
+      street: 'הרצל',
+    }],
     birthCountry: 'רוסיה',
     imigrationDate: '2005-05-13T00:00:07.996+00:00',
     hasIsraeliCitizenship: true,
@@ -211,5 +206,6 @@ export default [
     schoolName: 'בן גוריון',
     email: 'dana@gmail.com',
     attachments: [],
+    type: 'MALSHAB',
   },
 ];
