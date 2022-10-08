@@ -162,6 +162,35 @@ async function evaluateCollectionValues({
 }
 
 async function initialise() {
+  // Validate Mongo URI values
+  const mongoUriValues = new Set(
+    ['MONGO_URI', 'MONGODB_URI', 'mongoUri', 'DB_URI', 'DATABASE_URI'].filter(
+      (name) => name in process.env,
+    ),
+  );
+
+  if (!config.mongoUri && !mongoUriValues.size()) {
+    logError('No MongoDB URI provided');
+    throw new Error('No MongoDB URI provided');
+  }
+
+  if (
+    mongoUriValues.size() > 1 ||
+    (mongoUriValues.size() &&
+      config.mongoUri !== mongoUriValues.values().next())
+  ) {
+    logError(
+      'Mismatch between MongoDB URIs:',
+      [config.mongoUri, ...Array.from(mongoUriValues)]
+        .filter((uri) => uri)
+        .join(', '),
+    );
+    throw new Error('Mismatch between MongoDB URIs');
+  }
+
+  // If config.mongoUri is unset, that means that the value is in the process.env
+  config.mongoUri ??= mongoUriValues.values().next();
+
   // Connect to mongoose
   await loadPromise(
     mongoose.connect(
@@ -235,18 +264,18 @@ async function initialise() {
       }),
     );
 
-  return loadPromise(modelsPromise, {
+  await loadPromise(modelsPromise, {
     text: 'Creating models',
     successText: 'Created models',
     failText: 'Failed to create models',
-  })
-    .then(logDebugData)
-    .then(() => {
-      if (standardCollections.length === 0) {
-        logError('No valid collections found!');
-        throw new Error('No valid collections found!');
-      }
-    });
+  });
+  
+  logDebugData();
+
+  if (standardCollections.length === 0) {
+    logError('No valid collections found!');
+    throw new Error('No valid collections found!');
+  }
 }
 
 async function dryRun() {
