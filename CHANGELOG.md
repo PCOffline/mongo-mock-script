@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.4.2](https://github.com/pcoffline/reset-db/compare/v0.4.1...v0.4.2) (2022-10-08)
+
+
+### Features
+
+* dont log sensitive info by default in debug ([19be06d](https://github.com/pcoffline/reset-db/commit/19be06d89d39049693970f57b2f615037f1b7b64))
+
 ### [0.4.1](https://github.com/pcoffline/reset-db/compare/v0.4.0...v0.4.1) (2022-10-08)
 
 
