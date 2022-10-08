@@ -170,14 +170,14 @@ async function initialise() {
     ),
   );
 
-  if (!config.mongoUri && !mongoUriValues.size()) {
+  if (!config.mongoUri && !mongoUriValues.size) {
     logError('No MongoDB URI provided');
     throw new Error('No MongoDB URI provided');
   }
 
   if (
-    mongoUriValues.size() > 1 ||
-    (mongoUriValues.size() &&
+    mongoUriValues.size > 1 ||
+    (mongoUriValues.size &&
       config.mongoUri !== mongoUriValues.values().next())
   ) {
     logError(
