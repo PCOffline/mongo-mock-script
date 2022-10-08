@@ -92,9 +92,10 @@ const standardCollections = [];
 
 function logDebugData() {
   if (logLevel > logLevels.debug) return;
+  const { dbUri, ...printableConfig } = config;
 
   logDebug(`[${logDebugData.name}]`, 'Log Level:', logLevel);
-  logDebug(`[${logDebugData.name}]`, 'Config:', JSON.stringify(config));
+  logDebug(`[${logDebugData.name}]`, 'Config:', JSON.stringify(config.insecureDebugLog ? printableConfig : config));
   logDebug(`[${logDebugData.name}]`, 'Standard Collections:', JSON.stringify(standardCollections));
 }
 

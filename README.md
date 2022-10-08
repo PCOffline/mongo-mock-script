@@ -25,6 +25,7 @@ export default {
   preferPath: true, // When both path and data are provided, ignore the data and only use the path. If false, only the data will be used in such case.
   logLevel: 'info', // 'debug' | 'info' | 'warn' | 'error' | 'silent'
   mongoUri: 'mongodb://localhost:27017/my-database', // Can also be retrieved from environment variable: MONGO_URI, MONGODB_URI, DB_URI, DATABASE_URI or mongoUri
+  sensitiveDebugLog: false, // Log information that is considered sensitive (such as the MongoDB URI) in debug mode.
   collections: {
     collectionName: {
       schema: new Schema({
