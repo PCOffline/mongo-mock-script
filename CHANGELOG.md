@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/pcoffline/reset-db/compare/v0.4.0...v0.4.1) (2022-10-08)
+
+
+### Features
+
+* add db uri validation ([fb81cd5](https://github.com/pcoffline/reset-db/commit/fb81cd59bf81d088db6d0e257fe4b59d3a1d6b03))
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([8570b4d](https://github.com/pcoffline/reset-db/commit/8570b4d89f6fb2147a4f876c7635032433ad8825))
+
 ## [0.4.0](https://github.com/PCOffline/reset-db/compare/v0.3.0...v0.4.0) (2022-01-24)
 
 
