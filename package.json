@@ -21,7 +21,7 @@
   "dependencies": {
     "chalk": "^5.0.1",
     "mongoose": "^6.6.1",
-    "mongodb": "^4.9.1",
+    "mongodb": "^4.10.0",
     "ora": "^6.1.2"
   },
   "devDependencies": {
